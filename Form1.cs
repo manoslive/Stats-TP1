@@ -41,18 +41,19 @@ namespace tp1_echantillonnage
         private void BTN_Generer_Click(object sender, EventArgs e)
         {
             DGV_Fichier.Rows.Clear();
+            RemplirDGVFichier();
             if(RB_AleatoireSimple.Checked == true)
             {
-                CreerFichiers();
+                ModeAleatoireSimple();
             }
             else if(RB_Systematique.Checked == true)
             {
-                CreerFichiers();
+                ModeSystematique();
             }
             BTN_Save.Enabled = true;
         }
 
-        private void CreerFichiers()
+        private void RemplirDGVFichier()
         {
             string nomsFichiers = TB_NomsFichiers.Text;
             int nbEchantillons = Convert.ToInt32( TB_NbEchantillons.Text);
