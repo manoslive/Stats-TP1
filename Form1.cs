@@ -15,11 +15,11 @@ namespace tp1_echantillonnage
     {
         public int TotalRowCount;
         Excel.Application xlApp = new Excel.Application();
-        Excel.Workbook xlWorkBook;
+        Excel.Workbook xlWorkBook;        
         
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private void BTN_ChoisirFichier_Click(object sender, EventArgs e)
@@ -85,8 +85,7 @@ namespace tp1_echantillonnage
             {
                 for (int j = 0; j <= DGV_Echantillon.ColumnCount - 1; j++)
                 {
-                    DataGridViewCell cell = DGV_Echantillon[j, i];
-                    xlWorkSheet.Cells[i + 1, j + 1] = cell.Value;
+                    xlWorkSheet.Cells[i + 1, j + 1] = DGV_Echantillon[j, i].Value;
                 }
             }
         }
@@ -108,7 +107,7 @@ namespace tp1_echantillonnage
 
                     RemplirWorksheet(xlWorkSheet);
 
-                    xlWorkBook.SaveAs(ChoisirPath.SelectedPath + "\\" + DGV_Fichier.Rows[x].Cells[0].Value, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlWorkBook.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers + x, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
                     xlWorkBook.Close(true, misValue, misValue);
                     xlApp.Quit();
                 }
