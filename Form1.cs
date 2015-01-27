@@ -21,7 +21,7 @@ namespace tp1_echantillonnage
         private void BTN_ChoisirFichier_Click(object sender, EventArgs e)
         {
             OpenFileDialog ChoixFichier = new OpenFileDialog();
-            if(ChoixFichier.ShowDialog() == DialogResult.OK)
+            if (ChoixFichier.ShowDialog() == DialogResult.OK)
             {
                 Excel.Application excel = new Excel.Application();
                 Excel.Workbook workbook = excel.Workbooks.Open(ChoixFichier.FileName);
@@ -34,21 +34,46 @@ namespace tp1_echantillonnage
                 int rowsCount = worksheet.UsedRange.Rows.Count;
 
                 //worksheet.Cells[i + 1, x].Value);
-
             }
         }
+
+        private List<int> ModeAleatoireSimple()
+        {
+            Random random = new Random();
+            var tableauRangees = new List<int> { };
+            // Remplit la liste des éléments
+            for (int i = 0; i < TotalRowCount; i++)
+            {
+                tableauRangees.Add(i);
+            }
+            for (int i = 0; i < longueur; i++)
+            {
+                for (int j = 0; j < Convert.ToInt32(TB_TailleEchantillons.Text); j++)
+                {
+                    int index = random.Next(tableauRangees.Count);
+                    var rangee = tableauRangees[index];
+                    tableauRangees.RemoveAt(index);
+                    // écrire dans XL
+                    //return tableauRangees;
+                }
+
+            }
+
+
+        }
+
 
         private void BTN_Generer_Click(object sender, EventArgs e)
         {
             DGV_Fichier.Rows.Clear();
             RemplirDGVFichier();
-            if(RB_AleatoireSimple.Checked == true)
+            if (RB_AleatoireSimple.Checked == true)
             {
                 ModeAleatoireSimple();
             }
-            else if(RB_Systematique.Checked == true)
+            else if (RB_Systematique.Checked == true)
             {
-                ModeSystematique();
+                // ModeSystematique();
             }
             BTN_Save.Enabled = true;
         }
@@ -56,12 +81,12 @@ namespace tp1_echantillonnage
         private void RemplirDGVFichier()
         {
             string nomsFichiers = TB_NomsFichiers.Text;
-            int nbEchantillons = Convert.ToInt32( TB_NbEchantillons.Text);
-            int tailleEchantillons = Convert.ToInt32( TB_TailleEchantillons.Text);
+            int nbEchantillons = Convert.ToInt32(TB_NbEchantillons.Text);
+            int tailleEchantillons = Convert.ToInt32(TB_TailleEchantillons.Text);
 
-            for(int i = 0; i<nbEchantillons; i++)
+            for (int i = 0; i < nbEchantillons; i++)
             {
-                DGV_Fichier.Rows.Add(nomsFichiers + " " + (i+1));
+                DGV_Fichier.Rows.Add(nomsFichiers + " " + (i + 1));
             }
 
             // Resize les cells du DGV
@@ -87,7 +112,7 @@ namespace tp1_echantillonnage
                 Excel.Worksheet xlWorkSheet;
                 object misValue = System.Reflection.Missing.Value;
 
-                for (int x = 0; x < Convert.ToInt32(TB_NbEchantillons.Text); x++ )
+                for (int x = 0; x < Convert.ToInt32(TB_NbEchantillons.Text); x++)
                 {
                     xlApp = new Excel.Application();
                     xlWorkBook = xlApp.Workbooks.Add(misValue);
