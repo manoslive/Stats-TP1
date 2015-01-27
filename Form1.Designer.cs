@@ -45,8 +45,6 @@
             this.BTN_Generer = new System.Windows.Forms.Button();
             this.BTN_ChoisirFichier = new System.Windows.Forms.Button();
             this.LB_NomDuFichierChoisi = new System.Windows.Forms.Label();
-            this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Fichier)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Echantillon)).BeginInit();
             this.GB_Methodes.SuspendLayout();
@@ -133,9 +131,6 @@
             // DGV_Echantillon
             // 
             this.DGV_Echantillon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGV_Echantillon.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Column2,
-            this.Column3});
             this.DGV_Echantillon.Location = new System.Drawing.Point(229, 140);
             this.DGV_Echantillon.Margin = new System.Windows.Forms.Padding(2);
             this.DGV_Echantillon.Name = "DGV_Echantillon";
@@ -231,16 +226,6 @@
             this.LB_NomDuFichierChoisi.Size = new System.Drawing.Size(0, 13);
             this.LB_NomDuFichierChoisi.TabIndex = 8;
             // 
-            // Column2
-            // 
-            this.Column2.HeaderText = "Column2";
-            this.Column2.Name = "Column2";
-            // 
-            // Column3
-            // 
-            this.Column3.HeaderText = "Column3";
-            this.Column3.Name = "Column3";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -287,8 +272,6 @@
         private System.Windows.Forms.Button BTN_ChoisirFichier;
         private System.Windows.Forms.Label LB_NomDuFichierChoisi;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
     }
 }
 
