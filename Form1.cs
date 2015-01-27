@@ -87,10 +87,10 @@ namespace tp1_echantillonnage
                     var rangee = tableauRangees[index];
                     tableauEchantillon.Add(rangee);
                     tableauRangees.RemoveAt(index);
+                }
                     // écrire dans XL
-                    for (int k = 0; k <= // Nombre de rangees - 1; k++)
+                    for (int k = 0; k <= tableauEchantillon.; k++)
                     {
-
                         Excel.Application xlAppli1 = new Excel.Application();
                         Excel.Workbook xlWorkBook1;
                         Excel.Worksheet xlEchantillon;
