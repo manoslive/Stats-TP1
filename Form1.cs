@@ -13,6 +13,10 @@ namespace tp1_echantillonnage
 {
     public partial class Form1 : Form
     {
+        public int TotalRowCount;
+        Excel.Application xlApp = new Excel.Application();
+        Excel.Workbook xlWorkBook;
+        
         public Form1()
         {
             InitializeComponent();
@@ -32,6 +36,7 @@ namespace tp1_echantillonnage
                 LB_NomDuFichierChoisi.Text = fileName;
 
                 int rowsCount = worksheet.UsedRange.Rows.Count;
+                TotalRowCount = rowsCount;
 
                 //worksheet.Cells[i + 1, x].Value);
 
@@ -92,8 +97,6 @@ namespace tp1_echantillonnage
 
             if (ChoisirPath.ShowDialog() == DialogResult.OK)
             {
-                Excel.Application xlApp;
-                Excel.Workbook xlWorkBook;
                 Excel.Worksheet xlWorkSheet;
                 object misValue = System.Reflection.Missing.Value;
 
