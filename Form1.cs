@@ -40,6 +40,7 @@ namespace tp1_echantillonnage
 
         private void BTN_Generer_Click(object sender, EventArgs e)
         {
+            DGV_Fichier.Rows.Clear();
             if(RB_AleatoireSimple.Checked == true)
             {
                 CreerFichiers();
