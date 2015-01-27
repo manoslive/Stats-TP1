@@ -54,41 +54,46 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 45);
+            this.label1.Location = new System.Drawing.Point(12, 29);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(130, 20);
+            this.label1.Size = new System.Drawing.Size(88, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Nom des fichiers:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 125);
+            this.label2.Location = new System.Drawing.Point(12, 81);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(167, 20);
+            this.label2.Size = new System.Drawing.Size(114, 13);
             this.label2.TabIndex = 0;
             this.label2.Text = "Taille des échantillons:";
             // 
             // TB_NomsFichiers
             // 
-            this.TB_NomsFichiers.Location = new System.Drawing.Point(238, 42);
+            this.TB_NomsFichiers.Location = new System.Drawing.Point(159, 27);
+            this.TB_NomsFichiers.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.TB_NomsFichiers.Name = "TB_NomsFichiers";
-            this.TB_NomsFichiers.Size = new System.Drawing.Size(182, 26);
+            this.TB_NomsFichiers.Size = new System.Drawing.Size(123, 20);
             this.TB_NomsFichiers.TabIndex = 1;
             // 
             // TB_TailleEchantillons
             // 
-            this.TB_TailleEchantillons.Location = new System.Drawing.Point(238, 122);
+            this.TB_TailleEchantillons.Location = new System.Drawing.Point(159, 79);
+            this.TB_TailleEchantillons.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.TB_TailleEchantillons.Name = "TB_TailleEchantillons";
-            this.TB_TailleEchantillons.Size = new System.Drawing.Size(182, 26);
+            this.TB_TailleEchantillons.Size = new System.Drawing.Size(123, 20);
             this.TB_TailleEchantillons.TabIndex = 1;
             // 
             // RB_AleatoireSimple
             // 
             this.RB_AleatoireSimple.AutoSize = true;
-            this.RB_AleatoireSimple.Location = new System.Drawing.Point(36, 45);
+            this.RB_AleatoireSimple.Location = new System.Drawing.Point(24, 29);
+            this.RB_AleatoireSimple.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RB_AleatoireSimple.Name = "RB_AleatoireSimple";
-            this.RB_AleatoireSimple.Size = new System.Drawing.Size(146, 24);
+            this.RB_AleatoireSimple.Size = new System.Drawing.Size(98, 17);
             this.RB_AleatoireSimple.TabIndex = 2;
             this.RB_AleatoireSimple.TabStop = true;
             this.RB_AleatoireSimple.Text = "Aléatoire simple";
@@ -97,9 +102,10 @@
             // RB_Systematique
             // 
             this.RB_Systematique.AutoSize = true;
-            this.RB_Systematique.Location = new System.Drawing.Point(36, 75);
+            this.RB_Systematique.Location = new System.Drawing.Point(24, 49);
+            this.RB_Systematique.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.RB_Systematique.Name = "RB_Systematique";
-            this.RB_Systematique.Size = new System.Drawing.Size(131, 24);
+            this.RB_Systematique.Size = new System.Drawing.Size(88, 17);
             this.RB_Systematique.TabIndex = 2;
             this.RB_Systematique.TabStop = true;
             this.RB_Systematique.Text = "Systématique";
@@ -110,10 +116,11 @@
             this.DGV_Fichier.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.DGV_Fichier.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Column1});
-            this.DGV_Fichier.Location = new System.Drawing.Point(28, 215);
+            this.DGV_Fichier.Location = new System.Drawing.Point(19, 140);
+            this.DGV_Fichier.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DGV_Fichier.Name = "DGV_Fichier";
             this.DGV_Fichier.RowTemplate.Height = 28;
-            this.DGV_Fichier.Size = new System.Drawing.Size(226, 372);
+            this.DGV_Fichier.Size = new System.Drawing.Size(151, 242);
             this.DGV_Fichier.TabIndex = 3;
             // 
             // Column1
@@ -124,18 +131,21 @@
             // DGV_Echantillon
             // 
             this.DGV_Echantillon.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGV_Echantillon.Location = new System.Drawing.Point(344, 215);
+            this.DGV_Echantillon.Location = new System.Drawing.Point(229, 140);
+            this.DGV_Echantillon.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.DGV_Echantillon.Name = "DGV_Echantillon";
-            this.DGV_Echantillon.Size = new System.Drawing.Size(578, 372);
+            this.DGV_Echantillon.Size = new System.Drawing.Size(385, 242);
             this.DGV_Echantillon.TabIndex = 3;
             // 
             // GB_Methodes
             // 
             this.GB_Methodes.Controls.Add(this.RB_Systematique);
             this.GB_Methodes.Controls.Add(this.RB_AleatoireSimple);
-            this.GB_Methodes.Location = new System.Drawing.Point(680, 22);
+            this.GB_Methodes.Location = new System.Drawing.Point(453, 14);
+            this.GB_Methodes.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.GB_Methodes.Name = "GB_Methodes";
-            this.GB_Methodes.Size = new System.Drawing.Size(232, 178);
+            this.GB_Methodes.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GB_Methodes.Size = new System.Drawing.Size(155, 116);
             this.GB_Methodes.TabIndex = 4;
             this.GB_Methodes.TabStop = false;
             this.GB_Methodes.Text = "Méthodes d\'échantillonnage";
@@ -148,35 +158,39 @@
             this.GB_Fichier.Controls.Add(this.label3);
             this.GB_Fichier.Controls.Add(this.label2);
             this.GB_Fichier.Controls.Add(this.TB_NomsFichiers);
-            this.GB_Fichier.Location = new System.Drawing.Point(237, 17);
+            this.GB_Fichier.Location = new System.Drawing.Point(158, 11);
+            this.GB_Fichier.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.GB_Fichier.Name = "GB_Fichier";
-            this.GB_Fichier.Size = new System.Drawing.Size(436, 178);
+            this.GB_Fichier.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.GB_Fichier.Size = new System.Drawing.Size(291, 116);
             this.GB_Fichier.TabIndex = 4;
             this.GB_Fichier.TabStop = false;
             this.GB_Fichier.Text = "Information sur l\'échantillon";
             // 
             // TB_NbEchantillons
             // 
-            this.TB_NbEchantillons.Location = new System.Drawing.Point(238, 82);
+            this.TB_NbEchantillons.Location = new System.Drawing.Point(159, 53);
+            this.TB_NbEchantillons.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.TB_NbEchantillons.Name = "TB_NbEchantillons";
-            this.TB_NbEchantillons.Size = new System.Drawing.Size(182, 26);
+            this.TB_NbEchantillons.Size = new System.Drawing.Size(123, 20);
             this.TB_NbEchantillons.TabIndex = 1;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 85);
+            this.label3.Location = new System.Drawing.Point(12, 55);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(161, 20);
+            this.label3.Size = new System.Drawing.Size(109, 13);
             this.label3.TabIndex = 0;
             this.label3.Text = "Nombre d\'échantillon:";
             // 
             // BTN_Save
             // 
-            this.BTN_Save.Enabled = false;
-            this.BTN_Save.Location = new System.Drawing.Point(813, 609);
+            this.BTN_Save.Location = new System.Drawing.Point(542, 396);
+            this.BTN_Save.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.BTN_Save.Name = "BTN_Save";
-            this.BTN_Save.Size = new System.Drawing.Size(110, 38);
+            this.BTN_Save.Size = new System.Drawing.Size(73, 25);
             this.BTN_Save.TabIndex = 5;
             this.BTN_Save.Text = "Sauvegarder";
             this.BTN_Save.UseVisualStyleBackColor = true;
@@ -184,9 +198,10 @@
             // 
             // BTN_Generer
             // 
-            this.BTN_Generer.Location = new System.Drawing.Point(698, 609);
+            this.BTN_Generer.Location = new System.Drawing.Point(465, 396);
+            this.BTN_Generer.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.BTN_Generer.Name = "BTN_Generer";
-            this.BTN_Generer.Size = new System.Drawing.Size(110, 38);
+            this.BTN_Generer.Size = new System.Drawing.Size(73, 25);
             this.BTN_Generer.TabIndex = 5;
             this.BTN_Generer.Text = "Générer";
             this.BTN_Generer.UseVisualStyleBackColor = true;
@@ -194,10 +209,9 @@
             // 
             // BTN_ChoisirFichier
             // 
-            this.BTN_ChoisirFichier.Location = new System.Drawing.Point(28, 22);
-            this.BTN_ChoisirFichier.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.BTN_ChoisirFichier.Location = new System.Drawing.Point(19, 14);
             this.BTN_ChoisirFichier.Name = "BTN_ChoisirFichier";
-            this.BTN_ChoisirFichier.Size = new System.Drawing.Size(178, 40);
+            this.BTN_ChoisirFichier.Size = new System.Drawing.Size(119, 26);
             this.BTN_ChoisirFichier.TabIndex = 6;
             this.BTN_ChoisirFichier.Text = "Choisir un fichier";
             this.BTN_ChoisirFichier.UseVisualStyleBackColor = true;
@@ -206,17 +220,16 @@
             // LB_NomDuFichierChoisi
             // 
             this.LB_NomDuFichierChoisi.AutoSize = true;
-            this.LB_NomDuFichierChoisi.Location = new System.Drawing.Point(24, 72);
-            this.LB_NomDuFichierChoisi.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.LB_NomDuFichierChoisi.Location = new System.Drawing.Point(16, 47);
             this.LB_NomDuFichierChoisi.Name = "LB_NomDuFichierChoisi";
-            this.LB_NomDuFichierChoisi.Size = new System.Drawing.Size(0, 20);
+            this.LB_NomDuFichierChoisi.Size = new System.Drawing.Size(0, 13);
             this.LB_NomDuFichierChoisi.TabIndex = 8;
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(954, 662);
+            this.ClientSize = new System.Drawing.Size(636, 430);
             this.Controls.Add(this.LB_NomDuFichierChoisi);
             this.Controls.Add(this.BTN_ChoisirFichier);
             this.Controls.Add(this.BTN_Generer);
@@ -225,6 +238,7 @@
             this.Controls.Add(this.GB_Methodes);
             this.Controls.Add(this.DGV_Echantillon);
             this.Controls.Add(this.DGV_Fichier);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Fichier)).EndInit();

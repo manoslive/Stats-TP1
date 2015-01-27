@@ -13,9 +13,13 @@ namespace tp1_echantillonnage
 {
     public partial class Form1 : Form
     {
+        public int TotalRowCount;
+        Excel.Application xlApp = new Excel.Application();
+        Excel.Workbook xlWorkBook;        
+        
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent(); 
         }
 
         private void BTN_ChoisirFichier_Click(object sender, EventArgs e)
@@ -32,6 +36,7 @@ namespace tp1_echantillonnage
                 LB_NomDuFichierChoisi.Text = fileName;
 
                 int rowsCount = worksheet.UsedRange.Rows.Count;
+                TotalRowCount = rowsCount;
 
                 //worksheet.Cells[i + 1, x].Value);
             }
@@ -99,16 +104,23 @@ namespace tp1_echantillonnage
             SaveFiles();
         }
 
+        private void RemplirWorksheet(Excel.Worksheet xlWorkSheet)
+        {
+            for (int i = 0; i <= DGV_Echantillon.RowCount - 1; i++)
+            {
+                for (int j = 0; j <= DGV_Echantillon.ColumnCount - 1; j++)
+                {
+                    xlWorkSheet.Cells[i + 1, j + 1] = DGV_Echantillon[j, i].Value;
+                }
+            }
+        }
+
         private void SaveFiles()
         {
-            DGV_Echantillon.Rows[0].Cells[0].Value = "Allo";
-
             FolderBrowserDialog ChoisirPath = new FolderBrowserDialog();
 
             if (ChoisirPath.ShowDialog() == DialogResult.OK)
             {
-                Excel.Application xlApp;
-                Excel.Workbook xlWorkBook;
                 Excel.Worksheet xlWorkSheet;
                 object misValue = System.Reflection.Missing.Value;
 
@@ -118,15 +130,9 @@ namespace tp1_echantillonnage
                     xlWorkBook = xlApp.Workbooks.Add(misValue);
                     xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
 
-                    for (int i = 0; i <= DGV_Echantillon.RowCount - 1; i++)
-                    {
-                        for (int j = 0; j <= DGV_Echantillon.ColumnCount - 1; j++)
-                        {
-                            DataGridViewCell cell = DGV_Echantillon[j, i];
-                            xlWorkSheet.Cells[i + 1, j + 1] = cell.Value;
-                        }
-                    }
-                    xlWorkBook.SaveAs(ChoisirPath.SelectedPath + "\\" + DGV_Fichier.Rows[x].Cells[0].Value, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    RemplirWorksheet(xlWorkSheet);
+
+                    xlWorkBook.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers + x, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
                     xlWorkBook.Close(true, misValue, misValue);
                     xlApp.Quit();
                 }
