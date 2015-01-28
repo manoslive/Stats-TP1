@@ -13,6 +13,7 @@ namespace tp1_echantillonnage
 {
     public partial class Form1 : Form
     {
+        static int TotalRowCount;
         public Form1()
         {
             InitializeComponent();
@@ -31,8 +32,7 @@ namespace tp1_echantillonnage
                 string fileName = ChoixFichier.FileName.Substring(found + 1);
                 LB_NomDuFichierChoisi.Text = fileName;
 
-                int rowsCount = worksheet.UsedRange.Rows.Count;
-                TotalRowCount = rowsCount;
+                TotalRowCount = worksheet.UsedRange.Rows.Count;
 
                 //worksheet.Cells[i + 1, x].Value);
             }
@@ -88,25 +88,24 @@ namespace tp1_echantillonnage
                     tableauEchantillon.Add(rangee);
                     tableauRangees.RemoveAt(index);
                 }
-                    // écrire dans XL
-                    for (int k = 0; k <= tableauEchantillon.; k++)
+                // écrire dans XL
+                for (int k = 0; k <= tableauEchantillon.Count; k++)
+                {
+                    Excel.Application xlAppli1 = new Excel.Application();
+                    Excel.Workbook xlWorkBook1;
+                    Excel.Worksheet xlEchantillon;
+                    object misValue = System.Reflection.Missing.Value;
+                    xlWorkBook1 = xlAppli1.Workbooks.Add(misValue);
+                    xlEchantillon = (Excel.Worksheet)xlWorkBook1.Worksheets.get_Item(1);
+
+
+                    for (int l = 0; l <= TotalRowCount-1/*Nombre de colonnes - 1*/; l++)
                     {
-                        Excel.Application xlAppli1 = new Excel.Application();
-                        Excel.Workbook xlWorkBook1;
-                        Excel.Worksheet xlEchantillon;
-                        object misValue = System.Reflection.Missing.Value;
-                        xlWorkBook1 = xlAppli1.Workbooks.Add(misValue);
-                        xlEchantillon = (Excel.Worksheet)xlWorkBook1.Worksheets.get_Item(1);
-
-
-                        for (int l = 0; l <= //Nombre de colonnes - 1; l++)
-                        {
-                            int rangeeWS = tableauEchantillon[k];
-                            xlEchantillon.Cells[k + 1, l + 1] = worksheet.Cells[rangeeWS, l + 1];
-                        }
-                        xlWorkBook1.Close(true, misValue, misValue);
-                        xlAppli1.Quit();
+                        int rangeeWS = tableauEchantillon[k];
+                        xlEchantillon.Cells[k + 1, l + 1] = worksheet.Cells[rangeeWS, l + 1];
                     }
+                    xlWorkBook1.Close(true, misValue, misValue);
+                    xlAppli1.Quit();
                 }
             }
         }
