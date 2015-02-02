@@ -70,6 +70,7 @@ namespace tp1_echantillonnage
             }
             xlWorkBook.Close(true, misValue, misValue);
             xlApp.Quit();
+            //releaseObject(xlWorkBook);
             xlWorkBookFinal.Close(true, misValue, misValue);
             xlAppFinal.Quit();
         }
