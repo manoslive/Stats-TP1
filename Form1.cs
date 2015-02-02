@@ -14,10 +14,11 @@ namespace tp1_echantillonnage
     public partial class Form1 : Form
     {
         Excel.Application xlApp = new Excel.Application();
+        Excel.Application xlAppFinal = new Excel.Application();
         Excel.Workbook xlWorkBook;
         Excel.Workbook xlWorkBookFinal;
         Excel.Worksheet xlWorkSheet;
-        Excel.Worksheet xlEchantillon;
+        Excel.Worksheet xlWorkSheetFinal;
         static int TotalRowCount;
         static int TotalColumnCount;
         public Form1()
@@ -52,12 +53,10 @@ namespace tp1_echantillonnage
         private void SaveFiles()
         {
             FolderBrowserDialog ChoisirPath = new FolderBrowserDialog();
-
+            object misValue = System.Reflection.Missing.Value;
             if (ChoisirPath.ShowDialog() == DialogResult.OK)
-            {
-                object misValue = System.Reflection.Missing.Value;
-
-                for (int x = 0; x < Convert.ToInt32(TB_NbEchantillons.Text); x++)
+            {        
+                for (int x = 1; x <= Convert.ToInt32(TB_NbEchantillons.Text); x++)
                 {
                     xlWorkBook = xlApp.Workbooks.Add(misValue);
                     xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
@@ -66,11 +65,13 @@ namespace tp1_echantillonnage
                     //ModeAleatoireSimple(xlWorkSheet);
                     //RemplirWorksheet(xlWorkSheet);
 
-                    xlWorkBookFinal.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers + x, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlWorkBookFinal.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers.Text + x, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
                 }
-                xlWorkBook.Close(true, misValue, misValue);
-                xlApp.Quit();
             }
+            xlWorkBook.Close(true, misValue, misValue);
+            xlApp.Quit();
+            xlWorkBookFinal.Close(true, misValue, misValue);
+            xlAppFinal.Quit();
         }
 
         //private void ModeAleatoireSimple(Excel.Worksheet worksheet)
@@ -89,8 +90,8 @@ namespace tp1_echantillonnage
                 for (int j = 0; j < Convert.ToInt32(TB_TailleEchantillons.Text); j++)
                 {
                     int index = random.Next(TotalRowCount);
-                    var rangee = tableauRangees[index];
-                    tableauEchantillon.Add(rangee);
+                    //var rangee = tableauRangees[index];
+                    tableauEchantillon.Add(tableauRangees[index]);
                     tableauRangees.RemoveAt(index);
                 }
                 // écrire dans XL
@@ -101,15 +102,15 @@ namespace tp1_echantillonnage
                     //Excel.Worksheet xlEchantillon;
                     object misValue = System.Reflection.Missing.Value;
                     //xlWorkBook2 = xlApp2.Workbooks.Add(misValue);
-                    xlWorkBookFinal = xlApp.Workbooks.Add(misValue);
-                    xlEchantillon = (Excel.Worksheet)xlWorkBookFinal.Worksheets.get_Item(1);
+                    xlWorkBookFinal = xlAppFinal.Workbooks.Add(misValue);
+                    xlWorkSheetFinal = xlWorkBookFinal.Worksheets.Add();
 
                     for (int l = 0; l <= TotalColumnCount-1/*Nombre de colonnes - 1*/; l++)
                     {
                         int rangeeWS = tableauEchantillon[k];
-                        xlEchantillon.Cells[k + 1, l + 1] = xlWorkSheet.Cells[rangeeWS, l + 1];
+                        xlWorkSheetFinal.Cells[k + 1, l + 1] = xlWorkSheet.Cells[rangeeWS, l + 1];
                     }
-                    //xlWorkBook.Close(true, misValue, misValue);
+                    //xlWorkBookFinal.Close(true, misValue, misValue);
                     //xlApp.Quit();
                 }
             //}
