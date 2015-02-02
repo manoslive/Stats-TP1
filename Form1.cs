@@ -15,6 +15,7 @@ namespace tp1_echantillonnage
     {
         Excel.Application xlApp = new Excel.Application();
         Excel.Workbook xlWorkBook;
+        Excel.Workbook xlWorkBookFinal;
         Excel.Worksheet xlWorkSheet;
         Excel.Worksheet xlEchantillon;
         static int TotalRowCount;
@@ -65,7 +66,7 @@ namespace tp1_echantillonnage
                     //ModeAleatoireSimple(xlWorkSheet);
                     //RemplirWorksheet(xlWorkSheet);
 
-                    xlWorkBook.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers + x, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlWorkBookFinal.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers + x, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
                 }
                 xlWorkBook.Close(true, misValue, misValue);
                 xlApp.Quit();
@@ -100,7 +101,8 @@ namespace tp1_echantillonnage
                     //Excel.Worksheet xlEchantillon;
                     object misValue = System.Reflection.Missing.Value;
                     //xlWorkBook2 = xlApp2.Workbooks.Add(misValue);
-                    xlEchantillon = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                    xlWorkBookFinal = xlApp.Workbooks.Add(misValue);
+                    xlEchantillon = (Excel.Worksheet)xlWorkBookFinal.Worksheets.get_Item(1);
 
                     for (int l = 0; l <= TotalColumnCount-1/*Nombre de colonnes - 1*/; l++)
                     {
