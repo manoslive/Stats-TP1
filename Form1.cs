@@ -14,9 +14,7 @@ namespace tp1_echantillonnage
     public partial class Form1 : Form
     {
         Excel.Application xlApp = new Excel.Application();
-        Excel.Application xlAppFinal = new Excel.Application();
         Excel.Workbook xlWorkBook;
-        Excel.Workbook xlWorkBookFinal;
         Excel.Worksheet xlWorkSheet;
         Excel.Worksheet xlWorkSheetFinal;
         static int TotalRowCount;
@@ -40,8 +38,6 @@ namespace tp1_echantillonnage
 
                 TotalRowCount = xlWorkSheet.UsedRange.Rows.Count;
                 TotalColumnCount = xlWorkSheet.UsedRange.Columns.Count;
-
-                //worksheet.Cells[i + 1, x].Value);
             }
         }
 
@@ -58,21 +54,17 @@ namespace tp1_echantillonnage
             {        
                 for (int x = 1; x <= Convert.ToInt32(TB_NbEchantillons.Text); x++)
                 {
-                    xlWorkBook = xlApp.Workbooks.Add(misValue);
-                    xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-
                     ModeAleatoireSimple();
-                    //ModeAleatoireSimple(xlWorkSheet);
-                    //RemplirWorksheet(xlWorkSheet);
-
-                    xlWorkBookFinal.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers.Text + x, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    //xlWorkBook.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers.Text + x, Excel.XlFileFormat.xlWorkbookNormal, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                    xlWorkSheetFinal.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers.Text + x);
                 }
-            }
+            }           
             xlWorkBook.Close(true, misValue, misValue);
             xlApp.Quit();
-            //releaseObject(xlWorkBook);
-            xlWorkBookFinal.Close(true, misValue, misValue);
-            xlAppFinal.Quit();
+            releaseObject(xlWorkSheet);
+            releaseObject(xlWorkSheetFinal);
+            releaseObject(xlWorkBook);
+            releaseObject(xlApp);
         }
 
         //private void ModeAleatoireSimple(Excel.Worksheet worksheet)
@@ -86,35 +78,41 @@ namespace tp1_echantillonnage
             {
                 tableauRangees.Add(i);
             }
-            //for (int i = 0; i < Convert.ToInt32(TB_NbEchantillons.Text); i++)
-            //{
-                for (int j = 0; j < Convert.ToInt32(TB_TailleEchantillons.Text); j++)
+            for (int j = 0; j < Convert.ToInt32(TB_TailleEchantillons.Text); j++)
+            {
+                int index = random.Next(TotalRowCount);
+                tableauEchantillon.Add(tableauRangees[index]);
+                tableauRangees.RemoveAt(index);
+            }
+            object misValue = System.Reflection.Missing.Value;
+            xlWorkBook = xlApp.Workbooks.Add(misValue);
+            xlWorkSheetFinal = (Excel.Worksheet)xlWorkBook.Worksheets.Add();
+            // écrire dans XL
+            for (int k = 0; k < tableauEchantillon.Count; k++)
+            {
+                for (int l = 0; l <= TotalColumnCount-1; l++)
                 {
-                    int index = random.Next(TotalRowCount);
-                    //var rangee = tableauRangees[index];
-                    tableauEchantillon.Add(tableauRangees[index]);
-                    tableauRangees.RemoveAt(index);
+                    int rangeeWS = tableauEchantillon[k];
+                    xlWorkSheetFinal.Cells[k + 1, l + 1] = xlWorkSheet.Cells[rangeeWS, l + 1];
                 }
-                // écrire dans XL
-                for (int k = 0; k < tableauEchantillon.Count; k++)
-                {
-                    //Excel.Application xlApp2 = new Excel.Application();
-                    //Excel.Workbook xlWorkBook2;
-                    //Excel.Worksheet xlEchantillon;
-                    object misValue = System.Reflection.Missing.Value;
-                    //xlWorkBook2 = xlApp2.Workbooks.Add(misValue);
-                    xlWorkBookFinal = xlAppFinal.Workbooks.Add(misValue);
-                    xlWorkSheetFinal = xlWorkBookFinal.Worksheets.Add();
-
-                    for (int l = 0; l <= TotalColumnCount-1/*Nombre de colonnes - 1*/; l++)
-                    {
-                        int rangeeWS = tableauEchantillon[k];
-                        xlWorkSheetFinal.Cells[k + 1, l + 1] = xlWorkSheet.Cells[rangeeWS, l + 1];
-                    }
-                    //xlWorkBookFinal.Close(true, misValue, misValue);
-                    //xlApp.Quit();
-                }
-            //}
+            }
+        }
+        private void releaseObject(object obj)
+        {
+            try
+            {
+                System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            catch (Exception ex)
+            {
+                obj = null;
+                MessageBox.Show("Unable to release the Object " + ex.ToString());
+            }
+            finally
+            {
+                GC.Collect();
+            }
         }
     }
 }
