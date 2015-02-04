@@ -70,6 +70,7 @@ namespace tp1_echantillonnage
                         
                         xlWorkSheetFinal.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers.Text + x);
                     }
+                    progressBar.Value = x * 100 / Convert.ToInt32(TB_NbEchantillons.Text);
                 }
             }           
             xlWorkBook.Close(true, misValue, misValue);
@@ -95,7 +96,39 @@ namespace tp1_echantillonnage
         }
         private void ModeSystematique()
         {
-
+            int intervalle = TotalRowCount / Convert.ToInt32(TB_TailleEchantillons.Text);
+            Random random = new Random();
+            var tableauRangees = new List<int> { };
+            var tableauEchantillon = new List<int> { };
+            // Remplit la liste des éléments
+            for (int i = 2; i <= TotalRowCount; i++) //ne peut pas pigé ligne 1, car c'est la rangée des titres
+            {
+                tableauRangees.Add(i);
+            }
+            int index = random.Next(1, intervalle);
+            // Remplit une liste qui définit les éléments pigés
+            for (int j = 0; j < Convert.ToInt32(TB_TailleEchantillons.Text); j++)
+            {
+                    tableauEchantillon.Add(tableauRangees[index]);
+                    index = index + intervalle;
+            }
+            // Déclare un nouveau worksheet final pour y insérer les données pigés
+            object misValue = System.Reflection.Missing.Value;
+            xlWorkBook = xlApp.Workbooks.Add(misValue);
+            xlWorkSheetFinal = (Excel.Worksheet)xlWorkBook.Worksheets.Add();
+            // écrire dans XL
+            for (int i = 1; i <= TotalColumnCount; i++)//première rangée (titres)
+            {
+                xlWorkSheetFinal.Cells[1, i] = xlWorkSheet.Cells[1, i];
+            }
+            for (int k = 1; k <= tableauEchantillon.Count; k++)//start à la rangé 2 car  la première rangée est dédié au titres
+            {
+                for (int l = 1; l <= TotalColumnCount; l++)
+                {
+                    int rangeeWS = tableauEchantillon[k - 1];
+                    xlWorkSheetFinal.Cells[k + 1, l] = xlWorkSheet.Cells[rangeeWS, l];
+                }
+            }
         }
         private void ModeAleatoireSimple()
         {

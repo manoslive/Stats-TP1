@@ -35,6 +35,7 @@
             this.RB_AleatoireSimple = new System.Windows.Forms.RadioButton();
             this.RB_Systematique = new System.Windows.Forms.RadioButton();
             this.DGV_Fichier = new System.Windows.Forms.DataGridView();
+            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.GB_Methodes = new System.Windows.Forms.GroupBox();
             this.GB_Fichier = new System.Windows.Forms.GroupBox();
             this.TB_NbEchantillons = new System.Windows.Forms.TextBox();
@@ -43,7 +44,7 @@
             this.BTN_ChoisirFichier = new System.Windows.Forms.Button();
             this.LB_NomDuFichierChoisi = new System.Windows.Forms.Label();
             this.LB_NbRangees = new System.Windows.Forms.Label();
-            this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.progressBar = new System.Windows.Forms.ProgressBar();
             ((System.ComponentModel.ISupportInitialize)(this.DGV_Fichier)).BeginInit();
             this.GB_Methodes.SuspendLayout();
             this.GB_Fichier.SuspendLayout();
@@ -75,7 +76,7 @@
             this.TB_NomsFichiers.Location = new System.Drawing.Point(142, 29);
             this.TB_NomsFichiers.Margin = new System.Windows.Forms.Padding(2);
             this.TB_NomsFichiers.Name = "TB_NomsFichiers";
-            this.TB_NomsFichiers.Size = new System.Drawing.Size(123, 20);
+            this.TB_NomsFichiers.Size = new System.Drawing.Size(144, 20);
             this.TB_NomsFichiers.TabIndex = 1;
             this.TB_NomsFichiers.TextChanged += new System.EventHandler(this.TB_TextChanged);
             // 
@@ -85,7 +86,7 @@
             this.TB_TailleEchantillons.Location = new System.Drawing.Point(142, 81);
             this.TB_TailleEchantillons.Margin = new System.Windows.Forms.Padding(2);
             this.TB_TailleEchantillons.Name = "TB_TailleEchantillons";
-            this.TB_TailleEchantillons.Size = new System.Drawing.Size(123, 20);
+            this.TB_TailleEchantillons.Size = new System.Drawing.Size(144, 20);
             this.TB_TailleEchantillons.TabIndex = 3;
             this.TB_TailleEchantillons.TextChanged += new System.EventHandler(this.TB_TailleEchantillons_TextChanged);
             // 
@@ -133,6 +134,14 @@
             this.DGV_Fichier.Size = new System.Drawing.Size(139, 159);
             this.DGV_Fichier.TabIndex = 3;
             // 
+            // Column1
+            // 
+            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+            this.Column1.HeaderText = "Nom des fichiers";
+            this.Column1.Name = "Column1";
+            this.Column1.ReadOnly = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            // 
             // GB_Methodes
             // 
             this.GB_Methodes.Controls.Add(this.RB_Systematique);
@@ -169,7 +178,7 @@
             this.TB_NbEchantillons.Location = new System.Drawing.Point(142, 55);
             this.TB_NbEchantillons.Margin = new System.Windows.Forms.Padding(2);
             this.TB_NbEchantillons.Name = "TB_NbEchantillons";
-            this.TB_NbEchantillons.Size = new System.Drawing.Size(123, 20);
+            this.TB_NbEchantillons.Size = new System.Drawing.Size(144, 20);
             this.TB_NbEchantillons.TabIndex = 2;
             this.TB_NbEchantillons.TextChanged += new System.EventHandler(this.TB_TextChanged);
             // 
@@ -221,19 +230,19 @@
             this.LB_NbRangees.Size = new System.Drawing.Size(0, 13);
             this.LB_NbRangees.TabIndex = 9;
             // 
-            // Column1
+            // progressBar
             // 
-            this.Column1.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-            this.Column1.HeaderText = "Nom des fichiers";
-            this.Column1.Name = "Column1";
-            this.Column1.ReadOnly = true;
-            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.progressBar.Location = new System.Drawing.Point(19, 380);
+            this.progressBar.Name = "progressBar";
+            this.progressBar.Size = new System.Drawing.Size(313, 11);
+            this.progressBar.TabIndex = 10;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(352, 385);
+            this.ClientSize = new System.Drawing.Size(352, 399);
+            this.Controls.Add(this.progressBar);
             this.Controls.Add(this.LB_NbRangees);
             this.Controls.Add(this.LB_NomDuFichierChoisi);
             this.Controls.Add(this.BTN_ChoisirFichier);
@@ -272,6 +281,7 @@
         private System.Windows.Forms.Label LB_NomDuFichierChoisi;
         private System.Windows.Forms.Label LB_NbRangees;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.ProgressBar progressBar;
     }
 }
 
