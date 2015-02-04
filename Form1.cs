@@ -90,8 +90,6 @@ namespace tp1_echantillonnage
                 if (RB_AleatoireSimple.Checked == true || RB_Systematique.Checked == true)//Si au moin un radio button est checked
                     ready = true;
             }
-
-
             return ready;
         }
         private void ModeSystematique()
