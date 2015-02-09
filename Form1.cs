@@ -20,6 +20,7 @@ namespace tp1_echantillonnage
         Excel.Worksheet xlWorkSheetFinal;
         static int TotalRowCount;
         static int TotalColumnCount;
+        bool executee = false;
         public Form1()
         {
             InitializeComponent();
@@ -35,7 +36,7 @@ namespace tp1_echantillonnage
 
                 int found = ChoixFichier.FileName.LastIndexOf(@"\");
                 string fileName = ChoixFichier.FileName.Substring(found + 1);
-                LB_NomDuFichierChoisi.Text = fileName;
+                TB_NomDuFichierChoisi.Text = fileName;
 
                 TotalRowCount = xlWorkSheet.UsedRange.Rows.Count;
                 TotalColumnCount = xlWorkSheet.UsedRange.Columns.Count;
@@ -57,6 +58,8 @@ namespace tp1_echantillonnage
         {
             FolderBrowserDialog ChoisirPath = new FolderBrowserDialog();
             object misValue = System.Reflection.Missing.Value;
+            if(!executee)
+                xlWorkBook = xlApp.Workbooks.Add(misValue);
             if (ChoisirPath.ShowDialog() == DialogResult.OK)
             {        
                 for (int x = 1; x <= Convert.ToInt32(TB_NbEchantillons.Text); x++)
@@ -72,13 +75,8 @@ namespace tp1_echantillonnage
                     }
                     progressBar.Value = x * 100 / Convert.ToInt32(TB_NbEchantillons.Text);
                 }
-            }           
-            xlWorkBook.Close(true, misValue, misValue);
-            xlApp.Quit();
-            releaseObject(xlWorkSheet);
-            releaseObject(xlWorkSheetFinal);
-            releaseObject(xlWorkBook);
-            releaseObject(xlApp);
+            }
+            executee = true;
         }
         private bool VerifReady()
         {
@@ -111,8 +109,6 @@ namespace tp1_echantillonnage
                     index = index + intervalle;
             }
             // Déclare un nouveau worksheet final pour y insérer les données pigés
-            object misValue = System.Reflection.Missing.Value;
-            xlWorkBook = xlApp.Workbooks.Add(misValue);
             xlWorkSheetFinal = (Excel.Worksheet)xlWorkBook.Worksheets.Add();
             // écrire dans XL
             for (int i = 1; i <= TotalColumnCount; i++)//première rangée (titres)
@@ -146,8 +142,6 @@ namespace tp1_echantillonnage
                 tableauRangees.RemoveAt(index);
             }
             // Déclare un nouveau worksheet final pour y insérer les données pigés
-            object misValue = System.Reflection.Missing.Value;
-            xlWorkBook = xlApp.Workbooks.Add(misValue);
             xlWorkSheetFinal = (Excel.Worksheet)xlWorkBook.Worksheets.Add();
             // écrire dans XL
             for (int i = 1; i <= TotalColumnCount; i++ )//première rangée (titres)
@@ -211,6 +205,20 @@ namespace tp1_echantillonnage
             for(int i=1;i<=nbEchantillons;i++)
             {
                 DGV_Fichier.Rows.Add(TB_NomsFichiers.Text+i.ToString());
+            }
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if(executee)
+            {
+                object misValue = System.Reflection.Missing.Value;
+                xlWorkBook.Close(true, misValue, misValue);
+                xlApp.Quit();
+                releaseObject(xlWorkSheet);
+                releaseObject(xlWorkSheetFinal);
+                releaseObject(xlWorkBook);
+                releaseObject(xlApp);
             }
         }
     }
