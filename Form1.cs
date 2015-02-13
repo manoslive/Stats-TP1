@@ -56,8 +56,10 @@ namespace tp1_echantillonnage
 
         private void BTN_Save_Click(object sender, EventArgs e)
         {
-            progressBar.Value = 0;
+            // Lorsque le bouton save est appuyé...
+            progressBar.Value = 0; 
             SaveFiles();
+            // ----- On vide tous les champs -----
             TB_TailleEchantillons.Clear();
             TB_NomsFichiers.Clear();
             TB_NbEchantillons.Clear();
