@@ -58,6 +58,12 @@ namespace tp1_echantillonnage
         {
             progressBar.Value = 0;
             SaveFiles();
+            TB_TailleEchantillons.Clear();
+            TB_NomsFichiers.Clear();
+            TB_NbEchantillons.Clear();
+            DGV_Fichier.Rows.Clear();
+            RB_AleatoireSimple.Checked = false;
+            RB_Systematique.Checked = false;
         }
 
         private void SaveFiles()
@@ -250,15 +256,19 @@ namespace tp1_echantillonnage
         {
             if(executee)
             {
-                // Ici on s'assure de tout fermer pour ne pas laisser de processus inactifs
-                object misValue = System.Reflection.Missing.Value;
-                xlWorkBook.Close(true, misValue, misValue);
-                xlApp.Quit();
-                releaseObject(xlWorkSheet);
-                releaseObject(xlWorkSheetFinal);
-                releaseObject(xlWorkBook);
-                releaseObject(xlApp);
+                libererProcessus();
             }
+        }
+        private void libererProcessus()
+        {
+            // Ici on s'assure de tout fermer pour ne pas laisser de processus inactifs
+            object misValue = System.Reflection.Missing.Value;
+            xlWorkBook.Close(true, misValue, misValue);
+            xlApp.Quit();
+            releaseObject(xlWorkSheet);
+            releaseObject(xlWorkSheetFinal);
+            releaseObject(xlWorkBook);
+            releaseObject(xlApp);
         }
     }
 }
