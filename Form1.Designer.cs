@@ -89,7 +89,7 @@
             this.TB_TailleEchantillons.Name = "TB_TailleEchantillons";
             this.TB_TailleEchantillons.Size = new System.Drawing.Size(142, 20);
             this.TB_TailleEchantillons.TabIndex = 3;
-            this.TB_TailleEchantillons.TextChanged += new System.EventHandler(this.TB_TailleEchantillons_TextChanged);
+            this.TB_TailleEchantillons.TextChanged += new System.EventHandler(this.TB_TailleEchantillonsChanged);
             // 
             // RB_AleatoireSimple
             // 
@@ -181,7 +181,7 @@
             this.TB_NbEchantillons.Name = "TB_NbEchantillons";
             this.TB_NbEchantillons.Size = new System.Drawing.Size(142, 20);
             this.TB_NbEchantillons.TabIndex = 2;
-            this.TB_NbEchantillons.TextChanged += new System.EventHandler(this.TB_TextChanged);
+            this.TB_NbEchantillons.TextChanged += new System.EventHandler(this.TB_NbEchantillonsChanged);
             // 
             // label3
             // 
@@ -225,10 +225,10 @@
             // 
             // progressBar
             // 
-            this.progressBar.Location = new System.Drawing.Point(19, 396);
+            this.progressBar.Location = new System.Drawing.Point(11, 395);
             this.progressBar.MarqueeAnimationSpeed = 50;
             this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(313, 11);
+            this.progressBar.Size = new System.Drawing.Size(307, 11);
             this.progressBar.TabIndex = 10;
             // 
             // TB_NomDuFichierChoisi
