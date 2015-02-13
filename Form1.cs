@@ -203,8 +203,8 @@ namespace tp1_echantillonnage
 
         private void TB_NbEchantillonsChanged(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(TB_NbEchantillons.Text, @"^[0-9]+$"))
-                TB_NbEchantillons.Text = "";
+            if (!Regex.IsMatch(TB_NbEchantillons.Text, @"^[0-9]+$")) // On vérifie que le texte entré est invalide
+                TB_NbEchantillons.Text = ""; // Si c'est le cas on l'efface
             else
             {
                 if (VerifReady())
@@ -216,9 +216,9 @@ namespace tp1_echantillonnage
         }
         private void TB_TailleEchantillonsChanged(object sender, EventArgs e)
         {
-            if (!Regex.IsMatch(TB_TailleEchantillons.Text, @"^[0-9]+$"))
-                TB_TailleEchantillons.Text = "";
-            else if (Convert.ToInt32(TB_TailleEchantillons.Text) > (TotalRowCount - 1))
+            if (!Regex.IsMatch(TB_TailleEchantillons.Text, @"^[0-9]+$")) // On vérifie que le texte entré est invalide
+                TB_TailleEchantillons.Text = ""; // Si c'est le cas on l'efface
+            else if (Convert.ToInt32(TB_TailleEchantillons.Text) > (TotalRowCount - 1)) // Pour l'affichage de la taille de l'échantillon, on vérifie que le nombre entré ne dépasse pas cette taille
             {
                 TB_TailleEchantillons.Text = (TotalRowCount - 1).ToString();
                 if (VerifReady())
@@ -242,7 +242,7 @@ namespace tp1_echantillonnage
             int nbEchantillons = Convert.ToInt32(TB_NbEchantillons.Text);
             for(int i=1;i<=nbEchantillons;i++)
             {
-                DGV_Fichier.Rows.Add(TB_NomsFichiers.Text+i.ToString());
+                DGV_Fichier.Rows.Add(TB_NomsFichiers.Text+i.ToString()); // On remplit le tableau de droite avec les futurs noms de dossiers
             }
         }
 
@@ -250,6 +250,7 @@ namespace tp1_echantillonnage
         {
             if(executee)
             {
+                // Ici on s'assure de tout fermer pour ne pas laisser de processus inactifs
                 object misValue = System.Reflection.Missing.Value;
                 xlWorkBook.Close(true, misValue, misValue);
                 xlApp.Quit();
