@@ -56,6 +56,7 @@ namespace tp1_echantillonnage
 
         private void BTN_Save_Click(object sender, EventArgs e)
         {
+            progressBar.Value = 0;
             SaveFiles();
         }
 
