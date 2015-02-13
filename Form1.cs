@@ -14,6 +14,7 @@ namespace tp1_echantillonnage
 {
     public partial class Form1 : Form
     {
+        // Initialisation des variables nécessaires
         Excel.Application xlApp = new Excel.Application();
         Excel.Workbook xlWorkBook;
         Excel.Worksheet xlWorkSheet;
@@ -34,13 +35,16 @@ namespace tp1_echantillonnage
                 xlWorkBook = xlApp.Workbooks.Open(ChoixFichier.FileName);
                 xlWorkSheet = xlWorkBook.ActiveSheet;
 
+                // On enlève les caractères non nécessaires du chemin d'accès pour avoir un nom de fichier
                 int found = ChoixFichier.FileName.LastIndexOf(@"\");
                 string fileName = ChoixFichier.FileName.Substring(found + 1);
                 TB_NomDuFichierChoisi.Text = fileName;
 
+                // On vérifie combien on a de colonnes et de lignes
                 TotalRowCount = xlWorkSheet.UsedRange.Rows.Count;
                 TotalColumnCount = xlWorkSheet.UsedRange.Columns.Count;
 
+                // On affiche la taille de la pop
                 LB_NbRangees.Text = "Taille de la population: " + (TotalRowCount - 1).ToString();
 
                 TB_TailleEchantillons.Enabled = true;
@@ -58,22 +62,24 @@ namespace tp1_echantillonnage
         {
             FolderBrowserDialog ChoisirPath = new FolderBrowserDialog();
             object misValue = System.Reflection.Missing.Value;
-            if(!executee)
+            if(!executee) // La première fois on l'execute
                 xlWorkBook = xlApp.Workbooks.Add(misValue);
+
+
             if (ChoisirPath.ShowDialog() == DialogResult.OK)
             {        
                 for (int x = 1; x <= Convert.ToInt32(TB_NbEchantillons.Text); x++)
                 {
-                    if(VerifReady())
+                    if(VerifReady()) // Vérification des champs
                     {
-                        if (RB_AleatoireSimple.Checked == true)
-                            ModeAleatoireSimple();
+                        if (RB_AleatoireSimple.Checked == true) // On agit selon le choix
+                            ModeAleatoireSimple(); 
                         else if (RB_Systematique.Checked == true)
                             ModeSystematique();
                         
                         xlWorkSheetFinal.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers.Text + x);
                     }
-                    progressBar.Value = x * 100 / Convert.ToInt32(TB_NbEchantillons.Text);
+                    progressBar.Value = x * 100 / Convert.ToInt32(TB_NbEchantillons.Text); // La barre de progression qui est super jolie!
                 }
             }
             executee = true;
@@ -81,10 +87,10 @@ namespace tp1_echantillonnage
         private bool VerifReady()
         {
             bool ready = false;
-
+            // Ici on vérifie que tous les champs sont remplis avant de procéder
             if (TB_NbEchantillons.Text != "" && TB_NomsFichiers.Text != "" && TB_TailleEchantillons.Text != "")//Si tous les champs sont remplient
             {
-                RemplirDGV();
+                RemplirDGV(); // On remplit le petit tableau à droite
                 if (RB_AleatoireSimple.Checked == true || RB_Systematique.Checked == true)//Si au moin un radio button est checked
                     ready = true;
             }
@@ -92,10 +98,12 @@ namespace tp1_echantillonnage
         }
         private void ModeSystematique()
         {
+            // Variables
             int intervalle = TotalRowCount / Convert.ToInt32(TB_TailleEchantillons.Text);
             Random random = new Random();
             var tableauRangees = new List<int> { };
             var tableauEchantillon = new List<int> { };
+
             // Remplit la liste des éléments
             for (int i = 2; i <= TotalRowCount; i++) //ne peut pas pigé ligne 1, car c'est la rangée des titres
             {
@@ -120,7 +128,7 @@ namespace tp1_echantillonnage
                 for (int l = 1; l <= TotalColumnCount; l++)
                 {
                     int rangeeWS = tableauEchantillon[k - 1];
-                    xlWorkSheetFinal.Cells[k + 1, l] = xlWorkSheet.Cells[rangeeWS, l];
+                    xlWorkSheetFinal.Cells[k + 1, l] = xlWorkSheet.Cells[rangeeWS, l]; // On remplit le tableau excel
                 }
             }
         }
@@ -153,11 +161,12 @@ namespace tp1_echantillonnage
                 for (int l = 1; l <= TotalColumnCount; l++)
                 {
                     int rangeeWS = tableauEchantillon[k-1];
-                    xlWorkSheetFinal.Cells[k + 1, l] = xlWorkSheet.Cells[rangeeWS, l];
+                    xlWorkSheetFinal.Cells[k + 1, l] = xlWorkSheet.Cells[rangeeWS, l]; // On remplit les cellules du tableau XL
                 }
             }
         }
         // Fonction qui permet de terminer les processus d'excel encore encours
+        // Si ces processus ne sont pas libérés, on ne peut pas sauvegarder à nouveau. Il restera aussi des processus inactif d'XL
         private void releaseObject(object obj)
         {
             try
@@ -176,14 +185,14 @@ namespace tp1_echantillonnage
             }
         }
 
-        private void TB_TextChanged(object sender, EventArgs e)
+        private void TB_TextChanged(object sender, EventArgs e) // On modifie l'état du bouton save
         {
             if (VerifReady())
                 BTN_Save.Enabled = true;
             else
                 BTN_Save.Enabled = false;
         }
-        private void RB_Checked(object sender, EventArgs e)
+        private void RB_Checked(object sender, EventArgs e) // On modifie l'état 
         {
             if (VerifReady())
                 BTN_Save.Enabled = true;
