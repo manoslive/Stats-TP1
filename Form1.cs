@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.InteropServices;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Text.RegularExpressions;
 
 namespace tp1_echantillonnage
 {
@@ -175,13 +176,46 @@ namespace tp1_echantillonnage
                 GC.Collect();
             }
         }
-
         private void TB_TextChanged(object sender, EventArgs e)
         {
-            if (VerifReady())
-                BTN_Save.Enabled = true;
+            if (!Regex.IsMatch(TB_NbEchantillons.Text, @"^[0-9]+$"))
+                TB_NbEchantillons.Text = "";
             else
-                BTN_Save.Enabled = false;
+            {
+                if (VerifReady())
+                    BTN_Save.Enabled = true;
+                else
+                    BTN_Save.Enabled = false;
+            }
+
+        }
+
+        private void TB_NbEchantillonsChanged(object sender, EventArgs e)
+        {
+            if (!Regex.IsMatch(TB_NbEchantillons.Text, @"^[0-9]+$"))
+                TB_NbEchantillons.Text = "";
+            else
+            {
+                if (VerifReady())
+                    BTN_Save.Enabled = true;
+                else
+                    BTN_Save.Enabled = false;
+            }
+
+        }
+        private void TB_TailleEchantillonsChanged(object sender, EventArgs e)
+        {
+            if (!Regex.IsMatch(TB_TailleEchantillons.Text, @"^[0-9]+$"))
+                TB_TailleEchantillons.Text = "";
+            else if (Convert.ToInt32(TB_TailleEchantillons.Text) > (TotalRowCount - 1))
+            {
+                TB_TailleEchantillons.Text = (TotalRowCount - 1).ToString();
+                if (VerifReady())
+                    BTN_Save.Enabled = true;
+                else
+                    BTN_Save.Enabled = false;
+            }
+
         }
         private void RB_Checked(object sender, EventArgs e)
         {
@@ -193,10 +227,7 @@ namespace tp1_echantillonnage
 
         private void TB_TailleEchantillons_TextChanged(object sender, EventArgs e)
         {
-            if(Convert.ToInt32(TB_TailleEchantillons.Text)>(TotalRowCount-1))
-            {
-                TB_TailleEchantillons.Text = (TotalRowCount - 1).ToString();
-            }
+
         }
         private void RemplirDGV()
         {
