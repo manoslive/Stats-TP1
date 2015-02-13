@@ -1,4 +1,10 @@
-﻿using System;
+﻿//////////////////////////////////////////////////////////
+///   Shaun Cooper - Emmanuel Beloin  
+///   Programme d'échantillonage, méthode aléatoire simple ou systématique
+///   Remise : 13 février 2015
+//////////////////////////////////////////////////////////
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
