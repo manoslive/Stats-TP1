@@ -63,7 +63,7 @@ namespace tp1_echantillonnage
         private void BTN_Save_Click(object sender, EventArgs e)
         {
             // Lorsque le bouton save est appuyé...
-            progressBar.Value = 0; 
+            progressBar.Value = 0;
             SaveFiles();
             // ----- On vide tous les champs -----
             TB_TailleEchantillons.Clear();
@@ -78,21 +78,29 @@ namespace tp1_echantillonnage
         {
             FolderBrowserDialog ChoisirPath = new FolderBrowserDialog();
             object misValue = System.Reflection.Missing.Value;
-            if(!executee) // La première fois on l'execute
+            if (!executee) // La première fois on l'execute
                 xlWorkBook = xlApp.Workbooks.Add(misValue);
 
 
             if (ChoisirPath.ShowDialog() == DialogResult.OK)
-            {        
+            {
                 for (int x = 1; x <= Convert.ToInt32(TB_NbEchantillons.Text); x++)
                 {
-                    if(VerifReady()) // Vérification des champs
+                    xlWorkBook = xlApp.Workbooks.Add(misValue);
+                    if (VerifReady()) // Vérification des champs
                     {
                         if (RB_AleatoireSimple.Checked == true) // On agit selon le choix
                             ModeAleatoireSimple();
                         else if (RB_Systematique.Checked == true)
                             ModeSystematique();
-                        
+
+                        // Cette ligne change le nom du WorkSheet dans le fichier Excel
+                        xlWorkSheetFinal.Name = "Échantillon #" + x;
+
+                        // Ces 2 prochaines lignes suppriment la WorkSheet vide de départ du fichier Excel
+                        Excel.Worksheet ws = (Excel.Worksheet)xlWorkBook.Worksheets[2];
+                        ws.Delete();
+
                         xlWorkSheetFinal.SaveAs(ChoisirPath.SelectedPath + "\\" + TB_NomsFichiers.Text + x);
                     }
                     progressBar.Value = x * 100 / Convert.ToInt32(TB_NbEchantillons.Text); // La barre de progression qui est super jolie!
@@ -129,8 +137,8 @@ namespace tp1_echantillonnage
             // Remplit une liste qui définit les éléments pigés
             for (int j = 0; j < Convert.ToInt32(TB_TailleEchantillons.Text); j++)
             {
-                    tableauEchantillon.Add(tableauRangees[index]);
-                    index = index + intervalle;
+                tableauEchantillon.Add(tableauRangees[index]);
+                index = index + intervalle;
             }
             // Déclare un nouveau worksheet final pour y insérer les données pigés
             xlWorkSheetFinal = (Excel.Worksheet)xlWorkBook.Worksheets.Add();
@@ -161,22 +169,22 @@ namespace tp1_echantillonnage
             // Remplit une liste qui définit les randoms pigés
             for (int j = 0; j < Convert.ToInt32(TB_TailleEchantillons.Text); j++)
             {
-                int index = random.Next(0,tableauRangees.Count);
+                int index = random.Next(0, tableauRangees.Count);
                 tableauEchantillon.Add(tableauRangees[index]);
                 tableauRangees.RemoveAt(index);
             }
-            // Déclare un nouveau worksheet final pour y insérer les données pigés
+            // Déclare un nouveau worksheet final pour y insérer les données pigées
             xlWorkSheetFinal = (Excel.Worksheet)xlWorkBook.Worksheets.Add();
             // écrire dans XL
-            for (int i = 1; i <= TotalColumnCount; i++ )//première rangée (titres)
+            for (int i = 1; i <= TotalColumnCount; i++)//première rangée (titres)
             {
-                xlWorkSheetFinal.Cells[1,i] = xlWorkSheet.Cells[1,i];
+                xlWorkSheetFinal.Cells[1, i] = xlWorkSheet.Cells[1, i];
             }
-            for (int k = 1; k <= tableauEchantillon.Count; k++)//start à la rangé 2 car  la première rangée est dédié au titres
+            for (int k = 1; k <= tableauEchantillon.Count; k++)//start à la rangée 2 car  la première rangée est dédié au titres
             {
                 for (int l = 1; l <= TotalColumnCount; l++)
                 {
-                    int rangeeWS = tableauEchantillon[k-1];
+                    int rangeeWS = tableauEchantillon[k - 1];
                     xlWorkSheetFinal.Cells[k + 1, l] = xlWorkSheet.Cells[rangeeWS, l]; // On remplit les cellules du tableau XL
                 }
             }
@@ -254,15 +262,15 @@ namespace tp1_echantillonnage
         {
             DGV_Fichier.Rows.Clear();
             int nbEchantillons = Convert.ToInt32(TB_NbEchantillons.Text);
-            for(int i=1;i<=nbEchantillons;i++)
+            for (int i = 1; i <= nbEchantillons; i++)
             {
-                DGV_Fichier.Rows.Add(TB_NomsFichiers.Text+i.ToString()); // On remplit le tableau de droite avec les futurs noms de dossiers
+                DGV_Fichier.Rows.Add(TB_NomsFichiers.Text + i.ToString()); // On remplit le tableau de droite avec les futurs noms de dossiers
             }
         }
 
         private void Form1_FormClosed(object sender, FormClosedEventArgs e)
         {
-            if(executee)
+            if (executee)
             {
                 libererProcessus();
             }
